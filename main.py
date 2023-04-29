@@ -26,6 +26,18 @@ import matplotlib.pyplot as plt
 # finame=place+'/'+'fig1'+exte
 # print('archivo = ',finame)
 
+def pywork(a,b,c):
+    print('genero grafico en subrutina de trabajo')
+    plt.plot([0, 1, 2, 3, 4], [0, 1, 4, 9, 16])
+    plt.xlabel('Months')
+    plt.ylabel('Books Read')
+    print('salvo grafico sin mostrar')
+
+    plt.savefig('assets/figUno.png') ## problemas despues de enviar !!!!!!!!!!!!!!!!!!
+
+    plt.close() ## solucion al problema RuntimeError: main thread is not in main loop ?
+    return 
+
 app = Flask(__name__, static_folder='assets', static_url_path='/assets')
 
 
@@ -41,28 +53,11 @@ def index():
             ## submit sin entrar datos
             return "<html><body> <h1>Invalid number</h1></body></html>"
         else:
-            print(request.form['apemp'],request.form['appat'])    
-    ## trabajo generar y salvar grafico
-            print('genero grafico')
-            plt.plot([0, 1, 2, 3, 4], [0, 1, 4, 9, 16])
-            plt.xlabel('Months')
-            plt.ylabel('Books Read')
-            print('salvo grafico sin mostrar')
-    ## plt.show()
-    ## plt.savefig('https://fullpublic-production.up.railway.app/figUno.png')
-    ## plt.savefig('figUno.png')
-            plt.savefig('assets/figUno.png') ## problemas despues de enviar !!!!!!!!!!!!!!!!!!
-
-            plt.close() ## solucion al problema RuntimeError: main thread is not in main loop ?
-    
-    ## trabajo basico web videos
-    # datosObtenidos = requests.get('https://api.dailymotion.com/videos?channel=sport&limit=10')
-    # datosFormatoJSON = datosObtenidos.json()
-    # print(datosFormatoJSON)
-    # print("version unob -----------")
-
-    # # return render_template('index.html',datos=datosFormatoJSON['list'],fname=finame)
-    # return render_template('index.html', datos=datosFormatoJSON['list'])
+            print(request.form['apemp'],request.form['appat'])
+            ## trabajo generar y salvar grafico
+            pywork(request.form['apemp'],request.form['appat'],0)    
+            
+            
             return render_template('index.html', dato = 22)
 
 if __name__ == '__main__':
