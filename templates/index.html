@@ -2,36 +2,36 @@
 
 {% block content %}
 
-  <h3><i>
-      <center>
-        Aportes y Rentas
-        dato es {{ dato }}
-      </center>
-    </i></h3>
-  <p></p>
-  <p></p>
-  graf param
-  <p></p>
-  <!-- <img src='templates/figUno.jpg' class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt="PabloB"> -->
-  <!-- <img src='https://fullpublic-production.up.railway.app/figUno.png'> -->
-  <img src="./assets/figUno.png">
-  <p></p>
-  graf fin
-  <p></p>
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+
+      <form action="#" method="post">
+        <p>Entrar Aportes:</p>
+        <p><label>Empleado: <input type="text" name="apemp" id="ap1"></label> {{ dato }} </p>
+        <p>Patronal&nbsp;&nbsp;&nbsp;: <input type="text" name="appat" id="ap2"></p>
+        <p>Entrar Aumento Máximo:</p>
+        <p>Porcentaje: <input type="text" name="aumento" id="au1"></p>
+        <button type="submit" class="btn btn-primary">ENVIAR</button>
+      </form>
+    </div>
+
+    <div class="col-8">
+      <img src="./assets/figUno.png" fa-border="all">
+    </div>
 
 
-  <center>
+  </div>
+</div>
+ 
+<h3>
+  <i>
+    <center>
+      <p>Aportes y Rentas </p>
+      <p>dato es {{ dato }}</p>
+    </center>
+  </i>
+</h3>
 
 
-
-    <form action="#" method="post">
-      <p>Entrar :</p>
-      <p><label>Empleado: <input type="text" name="apemp" id="ap1"></label></p>
-      <p>Patronal: <input type="text" name="appat" id="ap2"></p>
-      <button type="submit" class="btn btn-primary">ENVIAR</button>
-    </form>
-
-
-  </center>
-
- {% endblock %} 
+{% endblock %}

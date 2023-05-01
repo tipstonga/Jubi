@@ -30,7 +30,7 @@ def pywork(a,b,c):
     print('genero grafico en subrutina de trabajo')
     plt.plot([0, 1, 2, 3, 4], [0, 1, 4, 9, 16])
     plt.xlabel('Months')
-    plt.ylabel('Books Read')
+    plt.ylabel('Ahorro') 
     print('salvo grafico sin mostrar')
 
     plt.savefig('assets/figUno.png') ## problemas despues de enviar !!!!!!!!!!!!!!!!!!
@@ -49,7 +49,7 @@ def index():
         return render_template('index.html', dato = 21)
 
     if request.method == 'POST':
-        if(request.form['apemp'] == ''):
+        if(request.form['apemp'] == '' or request.form['appat'] == '' or request.form['aumento'] == ''):
             ## submit sin entrar datos
             return "<html><body> <h1>Invalid number</h1></body></html>"
         else:
@@ -67,3 +67,4 @@ def about():
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
+    
