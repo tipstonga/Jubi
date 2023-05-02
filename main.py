@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request
 import requests
-import numpy as numpy
+import numpy as np
 import os
 import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
+
+aintold=1
+bintold=2
+cintold=0
 
 ## matplotlib.use('Agg')    parte de solucion en stackoverflow
 ## a busqueda flask RuntimeError: main thread is not in main loop
@@ -26,9 +31,13 @@ import matplotlib.pyplot as plt
 # finame=place+'/'+'fig1'+exte
 # print('archivo = ',finame)
 
-def pywork(a,b,c):
+def pywork(aint,bint,cint):
     print('genero grafico en subrutina de trabajo')
-    plt.plot([0, 1, 2, 3, 4], [0, 1, 4, 9, 16])
+    x=np.array([0, 1, 2, 3, 4])
+    
+    y=np.power(x,aint)
+
+    plt.plot(x,y)
     plt.xlabel('Months')
     plt.ylabel('Ahorro') 
     print('salvo grafico sin mostrar')
@@ -36,34 +45,39 @@ def pywork(a,b,c):
     plt.savefig('assets/figUno.png') ## problemas despues de enviar !!!!!!!!!!!!!!!!!!
 
     plt.close() ## solucion al problema RuntimeError: main thread is not in main loop ?
-    return 
+    [aintold,bintold,cintold]=[aint,bint,cint]
+    return [aint,bint,cint]
 
 app = Flask(__name__, static_folder='assets', static_url_path='/assets')
 
 
 @app.route('/', methods=['POST','GET'])
 def index():
-    
+     
     if request.method == 'GET':
         ## es la primera vez
-        return render_template('index.html', dato = 21)
+        dato=pywork(aintold,bintold,cintold)
+        return render_template('index.html', indexarg=dato)
 
     if request.method == 'POST':
         if(request.form['apemp'] == '' or request.form['appat'] == '' or request.form['aumento'] == ''):
             ## submit sin entrar datos
-            return "<html><body> <h1>Invalid number</h1></body></html>"
+            return "<html><body> <h1>Invalid number</h1></body></html>" ## trae problemas mejorar
         else:
-            print(request.form['apemp'],request.form['appat'])
+            aint=int(request.form['apemp'])
+            bint=int(request.form['appat'])
+            cint=int(request.form['aumento'])
+            print(aint,bint,cint)
             ## trabajo generar y salvar grafico
-            pywork(request.form['apemp'],request.form['appat'],0)    
+            dato=pywork(aint,bint,cint)    
             
             
-            return render_template('index.html', dato = 22)
+            return render_template('index.html', indexarg=dato )
 
 @app.route('/about', methods=['POST','GET'])
 def about():  
     
-    return render_template('about.html', dato = 44)        
+    return render_template('about.html', aboutarg='this and me')        
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))

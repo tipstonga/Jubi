@@ -8,10 +8,10 @@
 
       <form action="#" method="post">
         <p>Entrar Aportes:</p>
-        <p><label>Empleado: <input type="text" name="apemp" id="ap1"></label> {{ dato }} </p>
-        <p>Patronal&nbsp;&nbsp;&nbsp;: <input type="text" name="appat" id="ap2"></p>
+        <p><label>Empleado: <input type="text" name="apemp" id="ap1"></label> {{ indexarg[0] }} </p>
+        <p>Patronal&nbsp;&nbsp;&nbsp;: <input type="text" name="appat" id="ap2">  {{ indexarg[1] }}</p>
         <p>Entrar Aumento Máximo:</p>
-        <p>Porcentaje: <input type="text" name="aumento" id="au1"></p>
+        <p>Porcentaje: <input type="text" name="aumento" id="au1"></label> {{ indexarg[2] }}</p>
         <button type="submit" class="btn btn-primary">ENVIAR</button>
       </form>
     </div>
@@ -28,7 +28,7 @@
   <i>
     <center>
       <p>Aportes y Rentas </p>
-      <p>dato es {{ dato }}</p>
+      <p>indexarg es {{ indexarg }}</p>
     </center>
   </i>
 </h3>
