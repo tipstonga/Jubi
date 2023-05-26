@@ -8,7 +8,7 @@
 
       <form action="#" method="post">
         <p>Entrar Porcentaje Aportes:</p>
-        <p><label>Minimo (Empleado + Patronal) : <input type="text" name="aporte" id="ap1"></label> {{ indexarg[0] }} </p>
+        <p>Minimo (Empleado + Patronal) : <input type="text" name="aporte" id="ap1"></label> {{ indexarg[0] }} </p>
         <p>Entrar Interes Anual sobre Aportes:</p>
         <p>Porcentaje&nbsp;&nbsp;&nbsp; : <input type="text" name="interes" id="ap2">  {{ indexarg[1] }}</p>
         <p>Entrar Aumento Periódico:</p>
@@ -31,6 +31,7 @@
     <center>
       <p>Aportes y Rentas </p>
       <p>indexarg es {{ indexarg }}</p>
+      <p>A los 30 años el salario es de {{  indexarg[5] }} con 82% de {{ indexarg[4]  }}</p>
     </center>
   </i>
 </h3>

@@ -39,7 +39,7 @@ def index():
      
     if request.method == 'GET':
         ## es la primera vez, calcula con argumentos default
-                dato = jubiploter() 
+        dato = jubiploter() 
         return render_template('index.html', indexarg=dato)
 
     if request.method == 'POST':

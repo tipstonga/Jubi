@@ -33,6 +33,7 @@ def calcaum(beta,interesmensual,salario,pctaum=0,intervaum=0) :
     captime=[0]
     cap=0
     erre=1+interesmensual
+    tasaaum=1+pctaum/100
 
 ##    global hab,nhab,shab,ihab
     global ihab 
@@ -45,7 +46,7 @@ def calcaum(beta,interesmensual,salario,pctaum=0,intervaum=0) :
         cap=capvec[n]
          
         if n%intervaum == 0    :
-            salario=salario*(1+pctaum)
+            salario=salario*tasaaum
 
         if cap*interesmensual >= hab[ihab]*salario  :
             nhab[ihab]=n
@@ -129,7 +130,7 @@ def jubiploter(pctini=20 ,intanual=6,pctaum=0, intervaum=60):
     
     print("aporte",newsal*beta," y salario",newsal, "final")
 
-    return [ pctini, intanual, pctaum, intervaum]
+    return [ pctini, intanual, pctaum, intervaum, round(newsal*0.82,2), round(newsal,2)]
 
 if __name__ == "__main__":
     jubiploter()
