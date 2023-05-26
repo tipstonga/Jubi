@@ -6,9 +6,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('Agg')
 
-aintold=1
-bintold=2
-cintold=0
+from jubilib import *
+
+ 
 
 ## matplotlib.use('Agg')    parte de solucion en stackoverflow
 ## a busqueda flask RuntimeError: main thread is not in main loop
@@ -31,23 +31,6 @@ cintold=0
 # finame=place+'/'+'fig1'+exte
 # print('archivo = ',finame)
 
-def pywork(aint,bint,cint):
-    print('genero grafico en subrutina de trabajo')
-    x=np.array([0, 1, 2, 3, 4])
-    
-    y=np.power(x,aint)
-
-    plt.plot(x,y)
-    plt.xlabel('Months')
-    plt.ylabel('Ahorro') 
-    print('salvo grafico sin mostrar')
-
-    plt.savefig('assets/figUno.png') ## problemas despues de enviar !!!!!!!!!!!!!!!!!!
-
-    plt.close() ## solucion al problema RuntimeError: main thread is not in main loop ?
-    [aintold,bintold,cintold]=[aint,bint,cint]
-    return [aint,bint,cint]
-
 app = Flask(__name__, static_folder='assets', static_url_path='/assets')
 
 
@@ -56,7 +39,7 @@ def index():
      
     if request.method == 'GET':
         ## es la primera vez
-        dato=pywork(aintold,bintold,cintold)
+        dato = jubiploter() 
         return render_template('index.html', indexarg=dato)
 
     if request.method == 'POST':
@@ -69,10 +52,11 @@ def index():
             cint=int(request.form['aumento'])
             print(aint,bint,cint)
             ## trabajo generar y salvar grafico
-            dato=pywork(aint,bint,cint)    
+            dato=jubiploter(aint,bint,cint)    
             
             
             return render_template('index.html', indexarg=dato )
+    
 
 @app.route('/about', methods=['POST','GET'])
 def about():  
