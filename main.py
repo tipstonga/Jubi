@@ -38,21 +38,22 @@ app = Flask(__name__, static_folder='assets', static_url_path='/assets')
 def index():
      
     if request.method == 'GET':
-        ## es la primera vez
-        dato = jubiploter() 
+        ## es la primera vez, calcula con argumentos default
+                dato = jubiploter() 
         return render_template('index.html', indexarg=dato)
 
     if request.method == 'POST':
-        if(request.form['apemp'] == '' or request.form['appat'] == '' or request.form['aumento'] == ''):
+        if(request.form['aporte'] == '' or request.form['interes'] == '' or request.form['aumento'] == ''or request.form['periodo'] == ''):
             ## submit sin entrar datos
             return "<html><body> <h1>Invalid number</h1></body></html>" ## trae problemas mejorar
         else:
-            aint=int(request.form['apemp'])
-            bint=int(request.form['appat'])
+            aint=int(request.form['aporte'])
+            bint=int(request.form['interes'])
             cint=int(request.form['aumento'])
-            print(aint,bint,cint)
+            dint=int(request.form['periodo'])
+            print(aint,bint,cint,dint)
             ## trabajo generar y salvar grafico
-            dato=jubiploter(aint,bint,cint)    
+            dato=jubiploter(aint,bint,cint,dint)    
             
             
             return render_template('index.html', indexarg=dato )
