@@ -17,7 +17,12 @@ gg=[(0,.4,0,.3),(0,.4,0,.5),(0,.4,0,.7),(0,.4,0,.9)]  #r g b alpha
 ## vector de tonos de rojo
 rr=[(1,0,0,.3),(1,0,0,.5),(1,0,0,.7),(1,0,0,.9)]  #r g b alpha
 
-
+##
+hab=[0.70, 0.82, 1.00, 999999.0] # porcentajes y trick pct_ret 
+nhab=[0, 0, 0]  # mes en que se supera el porcentaje mes_ret 
+shab=[0, 0, 0]  # haberes del porcentaje sal_ret 
+ihab=0          # indice del porcentaje  ipct_ret   
+## 
 
 ## Calculo de la evolucion del capital y del salario
 ## Evaluacion de retornos mensuales
