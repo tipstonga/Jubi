@@ -35,16 +35,12 @@ def calcaum(beta,interesmensual,salario,pctaum=0,intervaum=0) :
     erre=1+interesmensual
     tasaaum=1+pctaum/100
 
-    global hab,nhab,shab,ihab
-##    global ihab
-##
-    hab=[0.70, 0.82, 1.00, 999999.0] # porcentajes y trick pct_ret 
-    nhab=[0, 0, 0]  # mes en que se supera el porcentaje mes_ret 
-    shab=[0, 0, 0]  # haberes del porcentaje sal_ret 
-    ihab=0          # indice del porcentaje  ipct_ret   
+    global ihab,nhab,shab
+    ihab=0
+    nhab=[0, 0, 0]  
+    shab=[0, 0, 0]   
 ## 
 
-    
     for n in range(1,361) :
         apmes= salario*beta
         capvec.append((capvec[n-1])*(erre)+apmes)
@@ -64,6 +60,13 @@ def calcaum(beta,interesmensual,salario,pctaum=0,intervaum=0) :
     return captime,capvec,salario
 ##-----------------------------
 def dibniveles(tx,crit,vecy,cocc,lastarg) :
+    if True :
+        print ('*******************************')
+        print ("i",ihab,"   h", hab)
+        print ("n",nhab)
+        print ("s",shab)
+        print ('*******************************')
+        
     if crit<1e-6 :
         if lastarg : 
             tx.axhline(140, label= "jubi 70%",color = 'g',linestyle = 'dotted')        
