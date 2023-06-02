@@ -52,8 +52,10 @@ def index():
             cint=int(request.form['aumento'])
             dint=int(request.form['periodo'])
             print(aint,bint,cint,dint)
+
             ## trabajo generar y salvar grafico
-            dato=jubiploter(aint,bint,cint,dint)    
+            # dato=jubiploter(aint,bint,cint,dint)
+            dato=jubiploter(aint,bint,cint/100,dint)     
             
             
             return render_template('index.html', indexarg=dato )

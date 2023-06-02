@@ -16,130 +16,160 @@ cc=[(0,1,1,.3),(0,1,1,.5),(0,1,1,.7),(0,1,1,.9)]  #r g b alpha
 gg=[(0,.4,0,.3),(0,.4,0,.5),(0,.4,0,.7),(0,.4,0,.9)]  #r g b alpha
 ## vector de tonos de rojo
 rr=[(1,0,0,.3),(1,0,0,.5),(1,0,0,.7),(1,0,0,.9)]  #r g b alpha
+## vector de tonos de magenta
+mm=[(1,0,1,.3),(1,0,1,.5),(1,0,1,.7),(1,0,1,.9)]  #r g b alpha
 
-##
-hab=[0.70, 0.82, 1.00, 999999.0] # porcentajes y trick pct_ret 
-nhab=[0, 0, 0]  # mes en que se supera el porcentaje mes_ret 
-shab=[0, 0, 0]  # haberes del porcentaje sal_ret 
-ihab=0          # indice del porcentaje  ipct_ret   
 ## 
 
-## Calculo de la evolucion del capital y del salario
-## Evaluacion de retornos mensuales
+##------------------------------------
+## Clase portadora de los valores clave
+## elimina declarar global y compacta procesos
+class Hu :
+    h=[0.70, 0.82, 1.00, 999999.0] ## %s interesantes con infinito
+    hn=[0, 0, 0]    ## n meses en que retorno pasa % interesante del salario
+    hs=[0, 0, 0]    ## haber correspondiente al retorno 
+    hi=0            ## indice del % interesante y correspondiente n y s
+    totex=''        ## acumulaa la impresión de resultados
+    
+    def reinit(self) :
+        self.hn=[0, 0, 0]   
+        self.hs=[0, 0, 0]  
+        self.hi=0
+        
+    def hdehi(self) :
+        return self.h[self.hi]
 
+    def update(self,ene,sal,hbeta, capcorte) :
+        self.hn[self.hi]=ene
+        self.hs[self.hi]=self.h[self.hi]*sal
+        self.totex = self.totex +self.cototex(self,ene,sal,hbeta,capcorte)+'<br />'
+##      paso a buscar nivel de haberes siguiente
+        self.hi += 1
+        
+    def cototex(self,ene,sal,hbeta,capcorte) :
+        meses= '0'+str(ene%12)
+        coto = 'con % ap ' + str(round(hbeta*100,2)) 
+        coto = coto +' en '+str(int(ene/12))+'a'+meses[-2:]+'m'
+        coto = coto +' haber '+ str(round(self.h[self.hi]*sal,2))
+        coto = coto +' : '+str(round(self.h[self.hi]*100,2))+' % '
+        coto = coto +' del salario '+str(round(sal,2))
+        coto = coto +' , capital acumulado '+ str(round(capcorte,2)) 
+        return coto
+        
+## fin de la clase Hu
+##------------------------        
+        
+## Info : aumento en 30 años por categorid ded.excl. 1.79
+##      por antiguedad en 25 años 2.2 , total 3.93         
+"""  
+Calculo de la evolucion del capital y del salario
+Evaluacion de retornos mensuales
+
+"""
 def calcaum(beta,interesmensual,salario,pctaum=0,intervaum=0) :
 
     capvec=[0]
     captime=[0]
     cap=0
     erre=1+interesmensual
-    tasaaum=1+pctaum/100
 
-    global ihab,nhab,shab
-    ihab=0
-    nhab=[0, 0, 0]  
-    shab=[0, 0, 0]   
-## 
-
+    Hu.reinit(Hu)
+    
     for n in range(1,361) :
+        ## evolucion del ahorro
         apmes= salario*beta
         capvec.append((capvec[n-1])*(erre)+apmes)
         captime.append(n/12)
         cap=capvec[n]
-         
-        if n%intervaum == 0    :
-            salario=salario*tasaaum
 
-        if cap*interesmensual >= hab[ihab]*salario  :
-            nhab[ihab]=n
-            shab[ihab]=hab[ihab]*salario
-##          paso a buscar nivel siguiente
-            ihab += 1
- 
- 
+        ## aumento del salario 
+        if n%intervaum == 0    :
+            salario=salario*(1+pctaum)
+            
+        ## control de renta
+        if cap*interesmensual >= salario*Hu.hdehi(Hu)  :
+            Hu.update(Hu,n,salario,beta,cap)
+            
     return captime,capvec,salario
 ##-----------------------------
-def dibniveles(tx,crit,vecy,cocc,lastarg) :
-    if True :
-        print ('*******************************')
-        print ("i",ihab,"   h", hab)
-        print ("n",nhab)
-        print ("s",shab)
-        print ('*******************************')
-        
-    if crit<1e-6 :
-        if lastarg : 
-            tx.axhline(140, label= "jubi 70%",color = 'g',linestyle = 'dotted')        
-            tx.axhline(164, label= "jubi 82%",color = 'c',linestyle = 'dotted')
-            tx.axhline(200,label= "jubi 100%",color = 'r',linestyle = 'dashed')
-        return tx 
 
-    if ihab>0 :
-            nivel_70=vecy[nhab[0]]
-            tx.axhline(nivel_70, label= "jubi 70%",
-                        color =cc[cocc],linestyle = 'dotted')
-    if ihab>1 :
-        nivel_82=vecy[nhab[1]]
+def dibniveles(tx,vecy,cocc) :    
+
+    if Hu.hi >0 :
+        nivel_70=vecy[Hu.hn[0]]
+        tx.axhline(nivel_70, label= "jubi 70%",
+                        color =gg[cocc],linestyle = 'dotted')
+    if Hu.hi >1 :
+        nivel_82=vecy[Hu.hn[1]]
         tx.axhline(nivel_82, label= "jubi 82%",
-                    color =gg[cocc],linestyle = 'dotted')
-    if ihab>2 :
-        nivel_100 =vecy[nhab[2]]
+                    color =mm[cocc],linestyle = 'dotted')
+    if Hu.hi >2 :
+        nivel_100 =vecy[Hu.hn[2]]
         tx.axhline(nivel_100, label= "jubi 100%",
                     color =rr[cocc],linestyle = 'dashed')
     
-    return tx 
+    return tx
+##-----------------------------
 """
  jubilacion y aportes
 
 """
-def jubiploter(pctini=20 ,intanual=6,pctaum=0, intervaum=60):
+def jubiploter(indato=20 ,intanual=6,pctaum=0, intervaum=60):
 
     interesmensual=-1+(1+intanual/100)**(1/12)
     print ("interes anual",intanual, "int mes", interesmensual) 
 
     Sal=1
-
-    icc=0  ## indice de los tonos de colores para secuenciarlos
    
     ## recorrido del porcentaje de aporte mensual 
     ncurvas = 4
     split = 2
-    arango= range(pctini,pctini-1+ncurvas*split,split)
+    arango= range(indato,indato-1+ncurvas*split,split)
     lastarango=arango[-1]
 
     ##    
     
     fig,ax= plt.subplots()
-    icc=0
+    
     for pct in   arango :
+        icc=arango.index(pct)
         beta = 1.0*pct/100
         salario=Sal
+        
         cx,cy , newsal = calcaum(beta,interesmensual,salario,pctaum,intervaum)
                
         ax.plot(cx,cy,color =bb[icc],label="% aporte" + str(pct))
 
-        ax=dibniveles(ax,pctaum,cy,icc,pct==lastarango)
-
-        icc += 1
-
+        ax=dibniveles(ax,cy,icc)
         
     plt.legend()
     plt.grid()
     plt.xlabel("años de aportes")
     plt.ylabel("capital acumulado [ salario inicial = 1 ]")
     plt.title("Jubilación: Años,Aportes,Haberes")
-
+    
     print('salvo grafico sin mostrar')
 
     plt.savefig('assets/figUno.png')  
 
     plt.close() ## solucion al problema RuntimeError: main thread is not in main loop 
     
+    if len(Hu.totex) >0 :
+        testu=Hu.totex
+    else :
+        testu='El haber máximo obtenible no alcanza el porcentaje buscado'
+        
+    """ print("aporte= ",round(newsal*beta,3),
+          "salario final= ",round(newsal,3),
+          "renta final= ",round(cy[360]*interesmensual,3)
+          ) """
+      
 
-    
-    print("aporte",newsal*beta," y salario",newsal, "final")
 
-    return [ pctini, intanual, pctaum, intervaum, round(newsal*0.82,2), round(newsal,2)]
+    return [ indato, intanual, int(pctaum*100), intervaum,
+     testu,round(newsal*beta,3),round(newsal,3),
+     round(cy[360]*interesmensual,3)]
+##-----------------------------
 
 if __name__ == "__main__":
     jubiploter()

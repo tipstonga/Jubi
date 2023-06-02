@@ -8,12 +8,12 @@
 
       <form action="#" method="post">
         <p>Entrar Porcentaje Aportes:</p>
-        <p>Minimo (Empleado + Patronal) : <input type="text" name="aporte" id="ap1"></label> {{ indexarg[0] }} </p>
+        <p>Minimo (Empleado + Patronal) : <input type="text" name="aporte" id="ap1" value =  " {{  indexarg[0] }} "      > </p>
         <p>Entrar Interes Anual sobre Aportes:</p>
-        <p>Porcentaje&nbsp;&nbsp;&nbsp; : <input type="text" name="interes" id="ap2">  {{ indexarg[1] }}</p>
+        <p>Porcentaje&nbsp;&nbsp;&nbsp; : <input type="text" name="interes" id="ap2" value=" {{ indexarg[1] }}"></p>
         <p>Entrar Aumento Periódico:</p>
-        <p>Porcentaje : <input type="text" name="aumento" id="au1"></label> {{ indexarg[2] }}</p>
-        <p>Cada cuantos meses : <input type="text" name="periodo" id="au1"></label> {{ indexarg[3] }}</p>
+        <p>Porcentaje : <input type="text" name="aumento" id="au1" value=" {{ indexarg[2] }} "></p>
+        <p>Cada cuantos meses : <input type="text" name="periodo" id="au1" value=" {{ indexarg[3] }}"></p>
         <button type="submit" class="btn btn-primary">ENVIAR</button>
       </form>
     </div>
@@ -26,15 +26,18 @@
   </div>
 </div>
  
-<h3>
+<h5>
   <i>
     <center>
       <p>Aportes y Rentas </p>
-      <p>indexarg es {{ indexarg }}</p>
-      <p>A los 30 años el salario es de {{  indexarg[5] }} con 82% de {{ indexarg[4]  }}</p>
+      <p>indexarg es {{ indexarg[0:4] }}</p>
+      <p>{{ indexarg[4] }}</p>
+      <p>A los 30 años el aporte es de {{  indexarg[5] }} </p> 
+      <p> el salario final es {{  indexarg[6] }} </p>
+      <p>y la renta final es {{ indexarg[7]  }}</p>
     </center>
   </i>
-</h3>
+</h5>
 
 
 {% endblock %}
