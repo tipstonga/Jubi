@@ -1,4 +1,11 @@
 body {
     background: #a3d3ee ;
 }
- 
+textarea {
+    border: 2px dashed rgb(12, 12, 12);
+    color:rgb(7, 87, 23);
+    background-color: rgb(231, 209, 180);
+  }
+  img {
+    border: 2px solid rgb(0,0,0);
+  }

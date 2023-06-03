@@ -31,6 +31,9 @@ class Hu :
     hi=0            ## indice del % interesante y correspondiente n y s
     totex=''        ## acumulaa la impresión de resultados
     
+    def toteclear(self) :
+        self.totex=''
+        
     def reinit(self) :
         self.hn=[0, 0, 0]   
         self.hs=[0, 0, 0]  
@@ -42,7 +45,7 @@ class Hu :
     def update(self,ene,sal,hbeta, capcorte) :
         self.hn[self.hi]=ene
         self.hs[self.hi]=self.h[self.hi]*sal
-        self.totex = self.totex +self.cototex(self,ene,sal,hbeta,capcorte)+'<br />'
+        self.totex = self.totex +self.cototex(self,ene,sal,hbeta,capcorte)+'\n '
 ##      paso a buscar nivel de haberes siguiente
         self.hi += 1
         
@@ -51,10 +54,11 @@ class Hu :
         coto = 'con % ap ' + str(round(hbeta*100,2)) 
         coto = coto +' en '+str(int(ene/12))+'a'+meses[-2:]+'m'
         coto = coto +' haber '+ str(round(self.h[self.hi]*sal,2))
-        coto = coto +' : '+str(round(self.h[self.hi]*100,2))+' % '
-        coto = coto +' del salario '+str(round(sal,2))
+        coto = coto +' : '+('  '+str(round(self.h[self.hi]*100,2)))[-6:]+' % '
+        coto = coto +'  del salario '+str(round(sal,2))
         coto = coto +' , capital acumulado '+ str(round(capcorte,2)) 
         return coto
+    #falta crear una funcion de formateo para tabular coto    
         
 ## fin de la clase Hu
 ##------------------------        
@@ -117,7 +121,7 @@ def dibniveles(tx,vecy,cocc) :
 def jubiploter(indato=20 ,intanual=6,pctaum=0, intervaum=60):
 
     interesmensual=-1+(1+intanual/100)**(1/12)
-    print ("interes anual",intanual, "int mes", interesmensual) 
+    #print ("interes anual",intanual, "int mes", interesmensual) 
 
     Sal=1
    
@@ -128,7 +132,8 @@ def jubiploter(indato=20 ,intanual=6,pctaum=0, intervaum=60):
     lastarango=arango[-1]
 
     ##    
-    
+    Hu.toteclear(Hu)
+    ##
     fig,ax= plt.subplots()
     
     for pct in   arango :
@@ -148,7 +153,7 @@ def jubiploter(indato=20 ,intanual=6,pctaum=0, intervaum=60):
     plt.ylabel("capital acumulado [ salario inicial = 1 ]")
     plt.title("Jubilación: Años,Aportes,Haberes")
     
-    print('salvo grafico sin mostrar')
+    #print('salvo grafico sin mostrar')
 
     plt.savefig('assets/figUno.png')  
 
