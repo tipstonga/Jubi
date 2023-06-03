@@ -50,15 +50,15 @@ class Hu :
         self.hi += 1
         
     def cototex(self,ene,sal,hbeta,capcorte) :
-        meses= '0'+str(ene%12)
-        coto = 'con % ap ' + str(round(hbeta*100,2)) 
-        coto = coto +' en '+str(int(ene/12))+'a'+meses[-2:]+'m'
-        coto = coto +' haber '+ str(round(self.h[self.hi]*sal,2))
-        coto = coto +' : '+('  '+str(round(self.h[self.hi]*100,2)))[-6:]+' % '
-        coto = coto +'  del salario '+str(round(sal,2))
-        coto = coto +' , capital acumulado '+ str(round(capcorte,2)) 
-        return coto
-    #falta crear una funcion de formateo para tabular coto    
+        meses= ' '+str(ene%12)
+        coto = 'con % aporte ' +  str(int(hbeta*100)).center(3) 
+        coto = coto +' en '+str(int(ene/12))+'a y '+meses[-2:]+'m'
+        coto = coto +(' haber '+ str(round(self.h[self.hi]*sal,2)).ljust(5,'0')[0:4]).center(15)
+
+        coto = coto +': '+(str(int(self.h[self.hi]*100)).rjust(10))[-4:]+' % '
+        coto = coto +' del salario '+str(round(sal,2))
+        coto = coto +' ,  capital acumulado '+ str(round(capcorte,2)) 
+        return coto  
         
 ## fin de la clase Hu
 ##------------------------        

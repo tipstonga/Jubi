@@ -4,7 +4,13 @@ body {
 textarea {
     border: 2px dashed rgb(12, 12, 12);
     color:rgb(7, 87, 23);
+  
     background-color: rgb(231, 209, 180);
+
+    font-family:  "Courier New","Monaco", monospace;
+    font-weight: bold;
+    font-stretch: ultra-condensed;
+    font-style: italic;
   }
   img {
     border: 2px solid rgb(0,0,0);
