@@ -1,11 +1,13 @@
 body {
-    background: #a3d3ee ;
+    /* background: #a3d3ee ; */
+    background:linear-gradient(to right,#87ceeb,#9400d3)
 }
 textarea {
-    border: 2px dashed rgb(12, 12, 12);
-    color:rgb(7, 87, 23);
+    border: 2px solid black;
+    color:darkolivegreen;
   
-    background-color:#e9eba3;
+    /* background-color:#e9eba3; */
+    background-color: powderblue;
 
     font-family:  "Courier New","Monaco", monospace;
     font-weight: bold;
@@ -13,5 +15,6 @@ textarea {
     font-style: italic;
   }
   img {
-    border: 2px solid rgb(0,0,0);
+    border: 2px solid black;
+
   }

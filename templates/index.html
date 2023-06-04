@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+<p>  &NonBreakingSpace;  </p>
 <div class="container">
   <div class="row">
     <div class="col-4">
@@ -26,21 +26,26 @@
   </div>
 </div>
  
-<h5>
+<div>
   <i>
+    <h3>
     <center>
-      <p>Aportes y Rentas </p>
-      <p>indexarg es {{ indexarg[0:4] }}</p>
-      <p></p>
-      <p>A los 30 años el aporte es de {{  indexarg[5] }} </p> 
-      <p> el salario final es {{  indexarg[6] }} </p>
+      <p>  &NonBreakingSpace;  </p>
+      <p>Con parametros {{ indexarg[0:4] }}</p>
+      <p>  &NonBreakingSpace;  </p>
+      <p>a los 30 años el aporte es de {{  indexarg[5] }} , el salario final es {{  indexarg[6] }} </p> 
+      <p> </p>
       <p>y la renta final es {{ indexarg[7]  }}</p>
       <p>---</p>
-      <p>---</p>
+      <p>  &NonBreakingSpace;  </p>
+    </h3>
+    <h5>
       <textarea id="t1" name="t1" rows="12" cols="100" readonly > {{ indexarg[4] }} </textarea>
     </center>
+    </h5>
   </i>
-</h5>
+  </h3>
+</div>
 
 
 {% endblock %}
