@@ -64,7 +64,7 @@ def index():
 @app.route('/about', methods=['POST','GET'])
 def about():  
     
-    return render_template('about.html', aboutarg='this and me')        
+    return render_template('about.html', aboutarg='Retirement Graph')        
 
 if __name__ == '__main__':
     app.run(debug=True, port=os.getenv("PORT", default=5000))
